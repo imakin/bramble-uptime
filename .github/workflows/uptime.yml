@@ -1,0 +1,33 @@
+name: uptime-evidence
+
+on:
+  workflow_dispatch:        # sementara HANYA manual. Cron ditambah setelah diukur.
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: '.nvmrc'
+          cache: 'npm'
+
+      - run: npm ci
+
+      - run: npx playwright install --with-deps chromium
+
+      - run: npx playwright test
+
+      # if: always() agar artefak terunggah saat test gagal
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: bukti-${{ github.run_number }}
+          path: |
+            playwright-report/
+            test-results/
+          retention-days: 90
