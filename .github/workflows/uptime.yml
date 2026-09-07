@@ -2,6 +2,8 @@ name: uptime-evidence
 
 on:
   workflow_dispatch:        # sementara HANYA manual. Cron ditambah setelah diukur.
+  schedule:
+    - cron: '19,49 * * * *'     # setiap hari setiap jam dimenit 19&49
 
 jobs:
   check:
@@ -9,9 +11,9 @@ jobs:
     timeout-minutes: 10
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v7
         with:
           node-version-file: '.nvmrc'
           cache: 'npm'
@@ -23,7 +25,7 @@ jobs:
       - run: npx playwright test
 
       # if: always() agar artefak terunggah saat test gagal
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         if: always()
         with:
           name: bukti-${{ github.run_number }}
