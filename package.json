@@ -1,0 +1,20 @@
+{
+    "name": "bramble-uptime",
+    "version": "1.0.0",
+    "private": true,
+    "description": "E2E uptime evidence for brambleco.com",
+    "author": {
+        "name": "makin"
+    },
+    "scripts": {
+        "test": "playwright test",
+        "install:browsers": "playwright install chromium --with-deps",
+        "report": "playwright show-report"
+    },
+    "engines": {
+        "node": ">=20"
+    },
+    "devDependencies": {
+        "@playwright/test": "1.63.0"
+    }
+}
