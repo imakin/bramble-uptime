@@ -26,10 +26,10 @@ jobs:
 
       # if: always() agar artefak terunggah saat test gagal
       - uses: actions/upload-artifact@v7
-        if: always()
+        if: failures()
         with:
           name: bukti-${{ github.run_number }}
           path: |
             playwright-report/
-            test-results/
+            test-results/results.json
           retention-days: 90
